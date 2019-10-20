@@ -18,4 +18,26 @@ describe('User Store', () => {
 
     expect(response.body).toHaveProperty('id');
   });
+
+  it('should not be able register to checked email', async () => {
+    await factory.create('User', {
+      email: 'daniel.test@gmail.com',
+    });
+
+    const userTwo = await factory.attrs('User', {
+      email: 'daniel.test@gmail.com',
+    });
+
+    const response = await request(app)
+      .post('/users')
+      .send(userTwo);
+
+    expect(response.status).toBe(401);
+  });
+
+  it('should not be able checked validators register user', async () => {
+    const response = await request(app).post('/users');
+
+    expect(response.status).toBe(403);
+  });
 });
