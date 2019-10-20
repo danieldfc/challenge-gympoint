@@ -9,12 +9,9 @@ class User extends Model {
         email: Sequeilize.STRING,
         password: Sequeilize.VIRTUAL,
         password_hash: Sequeilize.STRING,
-        provider: Sequeilize.BOOLEAN,
       },
       {
         sequelize,
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
       }
     );
     this.addHook('beforeSave', async user => {

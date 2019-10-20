@@ -12,13 +12,12 @@ class UserController {
         .json({ error: { message: 'User already exists.' } });
     }
 
-    const { id, name, provider } = await User.create(req.body);
+    const { id, name } = await User.create(req.body);
 
     return res.json({
       id,
       name,
       email,
-      provider,
     });
   }
 }
