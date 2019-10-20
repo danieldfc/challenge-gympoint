@@ -1,19 +1,35 @@
+import jwt from 'jsonwebtoken';
+
+import authConfig from '../../config/auth';
+
 import User from '../models/User';
 
 class SessionController {
   async store(req, res) {
-    // const { email } = req.body;
+    const { email, password } = req.body;
 
-    // const checkEmail = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
-    // if (!checkEmail) {
-    //   return res.status(400).json({ error: { message: 'User not found.' } });
-    // }
+    if (!user) {
+      return res.status(400).json({ error: { message: 'User not found.' } });
+    }
 
-    // const { id, name, provider } = await User.create(req.body);
+    if (!(await user.checkPassword(password))) {
+      return res.status(401).json({ error: 'Password does not match' });
+    }
+
+    const { id, name, provider } = user;
 
     return res.json({
-      token: true,
+      user: {
+        id,
+        name,
+        email,
+        provider,
+      },
+      token: jwt.sign({ id }, authConfig.secret, {
+        expiresIn: authConfig.expiresIn,
+      }),
     });
   }
 }
