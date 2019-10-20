@@ -3,16 +3,12 @@ import { object, string } from 'yup';
 export default async (req, res, next) => {
   try {
     const schema = object().shape({
-      name: string()
-        .strict(true)
-        .required(),
       email: string()
         .strict(true)
         .email()
         .required(),
       password: string()
         .strict(true)
-        .min(6)
         .required(),
     });
 
