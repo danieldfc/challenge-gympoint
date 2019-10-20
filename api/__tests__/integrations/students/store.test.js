@@ -9,7 +9,7 @@ describe('Student Store', () => {
     await truncate();
   });
 
-  it('should be able create a new students', async () => {
+  it('should be able create a new student', async () => {
     const user = await factory.attrs('User');
     await request(app)
       .post('/users')
@@ -34,11 +34,34 @@ describe('Student Store', () => {
     expect(response.body).toHaveProperty('id');
   });
 
-  it('should not be able create a new students without data', async () => {
+  it('should not be able create a new student with email duplicated', async () => {
     const user = await factory.attrs('User');
     await request(app)
       .post('/users')
       .send(user);
+
+    await factory.create('Student');
+    const student = await factory.attrs('Student');
+
+    const {
+      body: { token },
+    } = await request(app)
+      .post('/sessions')
+      .send({
+        email: user.email,
+        password: user.password,
+      });
+
+    const response = await request(app)
+      .post('/students')
+      .set('Authorization', `Bearer ${token}`)
+      .send(student);
+
+    expect(response.status).toBe(400);
+  });
+
+  it('should not be able create a new students without data', async () => {
+    const user = await factory.create('User');
 
     const {
       body: { token },

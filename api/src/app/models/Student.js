@@ -1,14 +1,14 @@
-import Sequeilize, { Model } from 'sequelize';
+import Sequelize, { Model } from 'sequelize';
 
 class Student extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequeilize.STRING,
-        email: Sequeilize.STRING,
-        age: Sequeilize.INTEGER,
-        weight: Sequeilize.DOUBLE,
-        height: Sequeilize.DOUBLE,
+        name: Sequelize.STRING,
+        email: Sequelize.STRING,
+        age: Sequelize.INTEGER,
+        weight: Sequelize.DOUBLE,
+        height: Sequelize.DOUBLE,
       },
       {
         sequelize,

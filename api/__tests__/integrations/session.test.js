@@ -47,4 +47,10 @@ describe('Session Store', () => {
 
     expect(response.status).toBe(401);
   });
+
+  it('should not be able create a new session with password invalid', async () => {
+    const response = await request(app).post('/sessions');
+
+    expect(response.status).toBe(403);
+  });
 });
