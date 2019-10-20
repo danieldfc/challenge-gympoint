@@ -1,0 +1,26 @@
+{
+  "name": "gympoint",
+  "version": "1.0.0",
+  "private": true,
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/DanielDavidDev/challenge-gympoint"
+  },
+  "author": {
+    "name": "Daniel Felizardo",
+    "email": "daniel.david772@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "packages": "run-s packages:*",
+    "packages:lint": "lerna run lint",
+    "packages:test": "lerna run test",
+    "packages:build": "lerna run build"
+  },
+  "workspaces": [
+    "api"
+  ],
+  "devDependencies": {
+    "lerna": "^3.18.1"
+  }
+}
