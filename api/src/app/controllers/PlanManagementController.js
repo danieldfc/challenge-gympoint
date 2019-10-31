@@ -47,7 +47,8 @@ class PlanManagementController {
         .json({ error: { message: "User isn't provider." } });
     }
 
-    const { id } = req.body;
+    const { id } = req.params;
+    const { title } = req.body;
 
     const plan = await PlanManagement.findByPk(id);
 
@@ -55,6 +56,18 @@ class PlanManagementController {
       return res
         .status(400)
         .json({ error: { message: 'Plan management not found' } });
+    }
+
+    if (title !== plan.title) {
+      const checkPlanManagement = await PlanManagement.findOne({
+        where: { title },
+      });
+
+      if (checkPlanManagement) {
+        return res
+          .status(400)
+          .json({ error: { message: 'Plan management already exists.' } });
+      }
     }
 
     await plan.update(req.body);
