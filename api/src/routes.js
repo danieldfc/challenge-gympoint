@@ -5,6 +5,7 @@ import SessionController from './app/controllers/SessionController';
 import StudentController from './app/controllers/StudentController';
 import PlanController from './app/controllers/PlanController';
 import EnrollmentController from './app/controllers/EnrollmentController';
+import CheckinController from './app/controllers/CheckinController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -33,6 +34,10 @@ routes.put(
   validationStudentUpdate,
   StudentController.update
 );
+
+// Checkin
+routes.get('students/:student_id/checkins', CheckinController.index);
+routes.post('students/:student_id/checkins', CheckinController.store);
 
 // Plan
 routes.get('/plans', PlanController.index);
