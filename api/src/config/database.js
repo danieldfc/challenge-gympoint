@@ -9,7 +9,7 @@ module.exports = {
   storage: './__tests__/database.sqlite',
   logging: false,
   define: {
-    timestamp: true,
+    timestamps: true,
     underscored: true,
     underscoredAll: true,
   },

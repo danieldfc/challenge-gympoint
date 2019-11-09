@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class PLanManagement extends Model {
+class Plan extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -12,9 +12,8 @@ class PLanManagement extends Model {
         sequelize,
       }
     );
-
     return this;
   }
 }
 
-export default PLanManagement;
+export default Plan;

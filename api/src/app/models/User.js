@@ -9,7 +9,6 @@ class User extends Model {
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
-        provider: Sequelize.BOOLEAN,
       },
       {
         sequelize,
@@ -20,7 +19,6 @@ class User extends Model {
         user.password_hash = await bcrypt.hash(user.password, 8);
       }
     });
-
     return this;
   }
 

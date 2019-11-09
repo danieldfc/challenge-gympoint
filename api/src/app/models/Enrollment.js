@@ -1,31 +1,30 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Registration extends Model {
+class Enrollment extends Model {
   static init(sequelize) {
     super.init(
       {
-        price: Sequelize.FLOAT,
         start_date: Sequelize.DATE,
         end_date: Sequelize.DATE,
+        price: Sequelize.DOUBLE,
       },
       {
         sequelize,
       }
     );
-
     return this;
   }
 
   static associate(models) {
-    this.belongsToMany(models.Student, {
+    this.belongsTo(models.Student, {
       foreignKey: 'student_id',
-      as: 'student',
+      as: 'students',
     });
-    this.belongsToMany(models.PlanManagement, {
+    this.belongsTo(models.Plan, {
       foreignKey: 'plan_id',
       as: 'plans',
     });
   }
 }
 
-export default Registration;
+export default Enrollment;

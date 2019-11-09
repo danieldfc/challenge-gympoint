@@ -1,8 +1,8 @@
 import request from 'supertest';
-import app from '../../src/app';
+import app from '../../../src/app';
 
-import factory from '../factory';
-import truncate from '../util/truncate';
+import factory from '../../factory';
+import truncate from '../../util/truncate';
 
 describe('Session Store', () => {
   beforeEach(async () => {
@@ -10,7 +10,10 @@ describe('Session Store', () => {
   });
 
   it('should be able create a new session to user', async () => {
-    const user = await factory.create('User');
+    const user = await factory.create('User', {
+      email: 'teste@test.com',
+      password: '123456',
+    });
 
     const response = await request(app)
       .post('/sessions')
@@ -48,7 +51,7 @@ describe('Session Store', () => {
     expect(response.status).toBe(401);
   });
 
-  it('should not be able create a new session with password invalid', async () => {
+  it('should not be able created new session without data', async () => {
     const response = await request(app).post('/sessions');
 
     expect(response.status).toBe(403);

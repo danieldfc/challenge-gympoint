@@ -1,7 +1,7 @@
 import User from '../models/User';
-import PlanManagement from '../models/PlanManagement';
+import Plan from '../models/Plan';
 
-class PlanManagementController {
+class PlanController {
   async index(req, res) {
     const checkUser = await User.findByPk(req.userId);
 
@@ -11,7 +11,7 @@ class PlanManagementController {
         .json({ error: { message: "User isn't provider." } });
     }
 
-    const plans = await PlanManagement.findAll();
+    const plans = await Plan.findAll();
 
     if (!plans) {
       return res.status(400).json({ error: { message: 'Plans not found!' } });
@@ -29,7 +29,7 @@ class PlanManagementController {
         .json({ error: { message: "User isn't provider." } });
     }
 
-    const { title, duration, price } = await PlanManagement.create(req.body);
+    const { title, duration, price } = await Plan.create(req.body);
 
     return res.json({
       title,
@@ -50,23 +50,21 @@ class PlanManagementController {
     const { id } = req.params;
     const { title } = req.body;
 
-    const plan = await PlanManagement.findByPk(id);
+    const plan = await Plan.findByPk(id);
 
     if (!plan) {
-      return res
-        .status(400)
-        .json({ error: { message: 'Plan management not found' } });
+      return res.status(400).json({ error: { message: 'Plan  not found' } });
     }
 
     if (title !== plan.title) {
-      const checkPlanManagement = await PlanManagement.findOne({
+      const checkPlan = await Plan.findOne({
         where: { title },
       });
 
-      if (checkPlanManagement) {
+      if (checkPlan) {
         return res
           .status(400)
-          .json({ error: { message: 'Plan management already exists.' } });
+          .json({ error: { message: 'Plan  already exists.' } });
       }
     }
 
@@ -86,12 +84,10 @@ class PlanManagementController {
 
     const { id } = req.params;
 
-    const plan = await PlanManagement.findByPk(id);
+    const plan = await Plan.findByPk(id);
 
     if (!plan) {
-      return res
-        .status(400)
-        .json({ error: { message: 'Plan management not found.' } });
+      return res.status(400).json({ error: { message: 'Plan  not found.' } });
     }
 
     await plan.destroy();
@@ -100,4 +96,4 @@ class PlanManagementController {
   }
 }
 
-export default new PlanManagementController();
+export default new PlanController();
