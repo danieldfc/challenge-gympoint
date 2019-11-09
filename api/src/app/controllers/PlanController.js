@@ -11,6 +11,17 @@ class PlanController {
     return res.json(plans);
   }
 
+  async show(req, res) {
+    const { id } = req.params;
+    const plans = await Plan.findByPk(id);
+
+    if (!plans) {
+      return res.status(400).json({ error: { message: 'Plans not found!' } });
+    }
+
+    return res.json(plans);
+  }
+
   async store(req, res) {
     const { title, duration, price } = await Plan.create(req.body);
 
