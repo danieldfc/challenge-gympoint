@@ -29,8 +29,8 @@ routes.put(
 
 routes.get('/plans', PlanController.index);
 routes.get('/plans/:id', PlanController.show);
-routes.post('/plans', PlanController.store);
-routes.put('/plans/:id', PlanController.update);
+routes.post('/plans', validationPlanStore, PlanController.store);
+routes.put('/plans/:id', validationPlanUpdate, PlanController.update);
 routes.delete('/plans/:id', PlanController.delete);
 
 export default routes;
