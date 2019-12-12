@@ -49,15 +49,15 @@ class EnrollmentController {
 
   async store(req, res) {
     const { student_id } = req.params;
+    const { plan_id, start_date } = req.body;
+
     const student = await Student.findByPk(student_id);
 
     if (!student) {
       return res.status(400).json({ error: 'Student does not exists' });
     }
 
-    const { plan_id, start_date } = req.body;
     const plan = await Plan.findByPk(plan_id);
-
     if (!plan) {
       return res.status(400).json({ error: 'Plan does not exists' });
     }

@@ -38,19 +38,18 @@ routes.put(
 );
 
 // Checkin
-routes.get('students/:student_id/checkins', CheckinController.index);
-routes.post('students/:student_id/checkins', CheckinController.store);
+routes.get('/students/:student_id/checkins', CheckinController.index);
+routes.post('/students/:student_id/checkins', CheckinController.store);
 
 // HelpOrder
-routes.get('students/:student_id/help-orders', HelpOrderController.index);
-routes.post('students/:student_id/help-orders', HelpOrderController.store);
+routes.get('/students/:student_id/help-orders', HelpOrderController.index);
+routes.post('/students/:student_id/help-orders', HelpOrderController.store);
 
 // Answer
-routes.post('help-orders/:help_order_id/answer', AnswerController.store);
+routes.post('/help-orders/:help_order_id/answer', AnswerController.store);
 
 // Plan
 routes.get('/plans', PlanController.index);
-routes.get('/plans/:id', PlanController.show);
 routes.post('/plans', validationPlanStore, PlanController.store);
 routes.put('/plans/:id', validationPlanUpdate, PlanController.update);
 routes.delete('/plans/:id', PlanController.delete);

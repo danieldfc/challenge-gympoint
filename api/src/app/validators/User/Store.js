@@ -1,4 +1,4 @@
-import { object, string } from 'yup';
+import { object, string, boolean } from 'yup';
 
 export default async (req, res, next) => {
   try {
@@ -14,6 +14,7 @@ export default async (req, res, next) => {
         .strict(true)
         .min(6)
         .required(),
+      provider: boolean().required(),
     });
 
     await schema.validate(req.body, { abortEarly: false });

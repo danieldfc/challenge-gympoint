@@ -11,31 +11,23 @@ class PlanController {
     return res.json(plans);
   }
 
-  async show(req, res) {
-    const { id } = req.params;
-    const plans = await Plan.findByPk(id);
-
-    if (!plans) {
-      return res.status(400).json({ error: { message: 'Plans not found!' } });
-    }
-
-    return res.json(plans);
-  }
-
   async store(req, res) {
-    const { title, duration, price } = await Plan.create(req.body);
+    const { title } = req.body;
 
     const plan = await Plan.findOne({ where: { title } });
 
-    if (title === plan.title) {
+    if (plan && title === plan.title) {
       return res.status(400).json({
         error: {
-          message: 'Title invalid',
+          message: 'Title already exists',
         },
       });
     }
 
+    const { id, duration, price } = await Plan.create(req.body);
+
     return res.json({
+      id,
       title,
       duration,
       price,
@@ -43,10 +35,10 @@ class PlanController {
   }
 
   async update(req, res) {
-    const { id } = req.params;
+    const { id: id_plan } = req.params;
     const { title } = req.body;
 
-    const plan = await Plan.findByPk(id);
+    const plan = await Plan.findByPk(id_plan);
 
     if (!plan) {
       return res.status(400).json({ error: { message: 'Plan  not found' } });
@@ -66,7 +58,14 @@ class PlanController {
 
     await plan.update(req.body);
 
-    return res.json(plan);
+    const { id, duration, price } = plan;
+
+    return res.json({
+      id,
+      title,
+      duration,
+      price,
+    });
   }
 
   async delete(req, res) {

@@ -1,17 +1,16 @@
 import request from 'supertest';
 import app from '../../../src/app';
 
-import factory from '../../factory';
 import truncate from '../../util/truncate';
+import factory from '../../factory';
 
-describe('Session Store', () => {
+describe('Session store', () => {
   beforeEach(async () => {
     await truncate();
   });
 
-  it('should be able create a new session to user', async () => {
+  it('should return JWT token when authenticated', async () => {
     const user = await factory.create('User', {
-      email: 'teste@test.com',
       password: '123456',
     });
 
@@ -19,10 +18,20 @@ describe('Session Store', () => {
       .post('/sessions')
       .send({
         email: user.email,
-        password: user.password,
+        password: '123456',
       });
 
+    expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('token');
+  });
+
+  it('should not be able create a new session without fields', async () => {
+    const response = await request(app).post('/sessions');
+
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({
+      error: { message: 'Validation failure.' },
+    });
   });
 
   it('should not be able create a new session without user', async () => {
@@ -30,13 +39,14 @@ describe('Session Store', () => {
       .post('/sessions')
       .send({
         email: 'test@test.com',
-        password: 'test123',
+        password: '123456',
       });
 
     expect(response.status).toBe(400);
+    expect(response.body.error.message).toBe('User not found.');
   });
 
-  it('should not be able create a new session with password invalid', async () => {
+  it('should not authenticate with invalid credentials', async () => {
     const user = await factory.create('User', {
       password: '123456',
     });
@@ -45,15 +55,12 @@ describe('Session Store', () => {
       .post('/sessions')
       .send({
         email: user.email,
-        password: '1234567',
+        password: '123123',
       });
 
     expect(response.status).toBe(401);
-  });
-
-  it('should not be able created new session without data', async () => {
-    const response = await request(app).post('/sessions');
-
-    expect(response.status).toBe(403);
+    expect(response.body).toMatchObject({
+      error: { message: 'Password does not match' },
+    });
   });
 });

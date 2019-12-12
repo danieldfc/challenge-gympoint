@@ -1,5 +1,8 @@
 import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
+import User from '../models/User';
+
+import Mail from '../../lib/Mail';
 
 class AnswerController {
   async store(req, res) {
@@ -31,6 +34,20 @@ class AnswerController {
     await helpOrder.update({
       answer,
       answer_at: new Date(),
+    });
+
+    const user = await User.findByPk(req.userId);
+
+    await Mail.sendMail({
+      to: `${helpOrder.student.name} <${helpOrder.student.email}>`,
+      subject: `RE: ${helpOrder.question}`,
+      template: 'AnswerMail',
+      context: {
+        student_name: helpOrder.student.name,
+        description: helpOrder.question,
+        provider: user.name,
+        answer: helpOrder.answer,
+      },
     });
 
     return res.json(helpOrder);

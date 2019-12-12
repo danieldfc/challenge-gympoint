@@ -28,7 +28,13 @@ class StudentController {
     const { email } = req.body;
     const { student_id } = req.params;
 
-    if (email) {
+    const student = await Student.findByPk(student_id);
+
+    if (!student) {
+      return res.status(400).json({ error: { message: 'Student not found.' } });
+    }
+
+    if (email !== student.email) {
       const checkStudent = await Student.findOne({ where: { email } });
 
       if (checkStudent) {
@@ -38,15 +44,15 @@ class StudentController {
       }
     }
 
-    const student = await Student.findByPk(student_id);
+    const { id, name, weight, height } = await student.save(req.body);
 
-    if (!student) {
-      return res.status(400).json({ error: { message: 'Student not found.' } });
-    }
-
-    await student.save(req.body);
-
-    return res.json(student);
+    return res.json({
+      id,
+      name,
+      email,
+      weight,
+      height,
+    });
   }
 }
 

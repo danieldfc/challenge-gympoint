@@ -1,84 +1,52 @@
 import request from 'supertest';
 import app from '../../../src/app';
 
-import factory from '../../factory';
 import truncate from '../../util/truncate';
+import factory from '../../factory';
 
-describe('Student Store', () => {
+describe('Student store', () => {
   beforeEach(async () => {
     await truncate();
   });
 
-  it('should be able to store a student when authenticated', async () => {
-    const user = await factory.create('User', {
-      email: 'test@test.com',
-      password: '123456',
-    });
-    const student = await factory.attrs('Student');
-
-    const {
-      body: { token },
-    } = await request(app)
-      .post('/sessions')
-      .send({
-        email: user.email,
-        password: user.password,
-      });
-
-    const response = await request(app)
-      .post('/students')
-      .set('Authorization', `Bearer ${token}`)
-      .send(student);
-
-    console.log(response.body);
-
-    expect(response.body).toHaveProperty('id');
-  });
-
-  it('should not be able to store a student without jwt token', async () => {
-    const student = await factory.attrs('Student');
-
-    const response = await request(app)
-      .post('/students')
-      .send(student);
-
-    expect(response.status).toBe(401);
-    expect(response.body).toMatchObject({ error: 'Token not provided' });
-  });
-
-  it('should not be able to store a student with invalid jwt token', async () => {
-    const student = await factory.attrs('Student');
-
-    const response = await request(app)
-      .post('/students')
-      .set('Authorization', `Bearer 123456`)
-      .send(student);
-
-    expect(response.status).toBe(401);
-    expect(response.body).toMatchObject({ error: 'Token invalid' });
-  });
-
-  it('should not be able to store a student with duplicated email', async () => {
+  it('should be able register a new student', async () => {
     const user = await factory.create('User');
     const student = await factory.attrs('Student');
 
-    const {
-      body: { token },
-    } = await request(app)
-      .post('/sessions')
-      .send({
-        email: user.email,
-        password: user.password,
-      });
+    const response = await request(app)
+      .post('/students')
+      .set('Authorization', `Bearer ${user.generateToken()}`)
+      .send(student);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('id');
+  });
+
+  it('should not be able register a new student without fields', async () => {
+    const user = await factory.create('User');
+
+    const response = await request(app)
+      .post('/students')
+      .set('Authorization', `Bearer ${user.generateToken()}`);
+
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({
+      error: { message: 'Validation failure.' },
+    });
+  });
+
+  it('should not be able register a student duplicated', async () => {
+    const user = await factory.create('User');
+    const student = await factory.attrs('Student');
 
     await request(app)
       .post('/students')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.generateToken()}`)
       .send(student);
 
     const response = await request(app)
       .post('/students')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.generateToken()}`)
       .send(student);
 
     expect(response.status).toBe(400);
@@ -87,31 +55,30 @@ describe('Student Store', () => {
     });
   });
 
-  it('should be not be able to store a student when required data is missing', async () => {
-    const user = await factory.create('User');
+  it('should not be able register student without authentication', async () => {
     const student = await factory.attrs('Student');
 
-    const {
-      body: { token },
-    } = await request(app)
-      .post('/sessions')
-      .send({
-        email: user.email,
-        password: user.password,
-      });
+    const response = await request(app)
+      .post('/students')
+      .send(student);
+
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({
+      error: { message: 'Token not found' },
+    });
+  });
+
+  it('should not be able register student with authentication invalidated', async () => {
+    const student = await factory.attrs('Student');
 
     const response = await request(app)
-      .post(`/students`)
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        ...student,
-        name: '',
-        email: '',
-        age: undefined,
-        weight: undefined,
-        height: undefined,
-      });
+      .post('/students')
+      .set('Authorization', 'Bearer 123')
+      .send(student);
 
-    expect(response.status).toBe(403);
+    expect(response.status).toBe(401);
+    expect(response.body).toMatchObject({
+      error: { message: 'Token invalidate.' },
+    });
   });
 });
