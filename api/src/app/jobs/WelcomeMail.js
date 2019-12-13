@@ -12,7 +12,7 @@ class WelcomeMail {
 
     await Mail.sendMail({
       to: `${name} <${email}>`,
-      subject: 'Send help',
+      subject: 'Welcome of Gympoint',
       template: 'WelcomeMail',
       context: {
         student: name,
