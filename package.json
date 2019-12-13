@@ -18,7 +18,9 @@
     "packages:build": "lerna run build"
   },
   "workspaces": [
-    "api"
+    "api",
+    "web",
+    "mobile"
   ],
   "devDependencies": {
     "lerna": "^3.18.1"
