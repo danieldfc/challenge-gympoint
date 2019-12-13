@@ -2,7 +2,9 @@ import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
 import User from '../models/User';
 
-import Mail from '../../lib/Mail';
+import HelpOrderMail from '../jobs/HelpOrderMail';
+
+import Queue from '../../lib/Queue';
 
 class HelpOrderController {
   async index(req, res) {
@@ -46,15 +48,10 @@ class HelpOrderController {
       question,
     });
 
-    await Mail.sendMail({
-      to: `${user.name} <${user.email}>`,
-      subject: 'Send help',
-      template: 'HelpOrderMail',
-      context: {
-        username: user.name,
-        student_name: student.name,
-        description: helpOrder.question,
-      },
+    await Queue.add(HelpOrderMail.key, {
+      user,
+      student,
+      helpOrder,
     });
 
     return res.json(helpOrder);

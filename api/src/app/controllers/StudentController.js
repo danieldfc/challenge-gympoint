@@ -1,5 +1,8 @@
 import Student from '../models/Student';
 
+import WelcomeMail from '../jobs/WelcomeMail';
+import Queue from '../../lib/Queue';
+
 class StudentController {
   async store(req, res) {
     const { email } = req.body;
@@ -13,6 +16,13 @@ class StudentController {
     }
 
     const { id, name, age, weight, height } = await Student.create(req.body);
+
+    await Queue.add(WelcomeMail.key, {
+      student: {
+        name,
+        email,
+      },
+    });
 
     return res.json({
       id,
