@@ -4,7 +4,7 @@
   "private": true,
   "repository": {
     "type": "github",
-    "url": "https://github.com/DanielDavidDev/challenge-gympoint"
+    "url": "https://github.com/danieldfc/challenge-gympoint"
   },
   "author": {
     "name": "Daniel Felizardo",
@@ -25,7 +25,5 @@
   "devDependencies": {
     "lerna": "^3.18.1"
   },
-  "dependencies": {
-    "jsonwebtoken": "^8.5.1"
-  }
+  "dependencies": {}
 }

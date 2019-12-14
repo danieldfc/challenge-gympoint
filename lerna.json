@@ -1,6 +1,8 @@
 {
   "packages": [
-    "api"
+    "api",
+    "web",
+    "mobile"
   ],
   "version": "1.0.0",
   "npmClient": "yarn",
