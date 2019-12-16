@@ -30,12 +30,14 @@ routes.post('/sessions', validationSessionStore, SessionController.store);
 routes.use(authMiddleware);
 
 // Student
+routes.get('/students', StudentController.index);
 routes.post('/students', validationStudentStore, StudentController.store);
 routes.put(
   '/students/:student_id',
   validationStudentUpdate,
   StudentController.update
 );
+routes.delete('/students/:student_id', StudentController.delete);
 
 // Checkin
 routes.get('/students/:student_id/checkins', CheckinController.index);

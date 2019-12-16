@@ -4,6 +4,12 @@ import WelcomeMail from '../jobs/WelcomeMail';
 import Queue from '../../lib/Queue';
 
 class StudentController {
+  async index(req, res) {
+    const students = await Student.findAll();
+
+    return res.json(students);
+  }
+
   async store(req, res) {
     const { email } = req.body;
 
@@ -63,6 +69,20 @@ class StudentController {
       weight,
       height,
     });
+  }
+
+  async delete(req, res) {
+    const { student_id } = req.params;
+
+    const student = await Student.findByPk(student_id);
+
+    if (!student) {
+      return res.status(404).json({ error: { message: 'Student not found.' } });
+    }
+
+    await student.destroy();
+
+    return res.json();
   }
 }
 
