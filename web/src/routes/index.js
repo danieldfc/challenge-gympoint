@@ -4,14 +4,19 @@ import Route from './Route';
 
 import SignIn from '~/pages/SignIn';
 
-import ListAlunos from '~/pages/ListAlunos';
+import ListStudents from '~/pages/ListStudents';
 
 export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
 
-      <Route path="/dashboard/alunos" exact component={ListAlunos} isPrivate />
+      <Route
+        path="/dashboard/students"
+        exact
+        component={ListStudents}
+        isPrivate
+      />
     </Switch>
   );
 }
