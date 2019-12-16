@@ -20,11 +20,11 @@ export default function ListStudents() {
   }, [students]);
 
   function handleSubmit() {
-    history.push('/dashboard/students/created');
+    history.push('/created/student');
   }
 
   function handleUpdateStudent(id) {
-    history.push(`/dashboard/students/${id}`);
+    history.push(`/students/${id}`);
   }
 
   async function handleDeleteStudent(id) {
