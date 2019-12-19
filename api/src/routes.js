@@ -31,6 +31,7 @@ routes.use(authMiddleware);
 
 // Student
 routes.get('/students', StudentController.index);
+routes.get('/students/:student_id', StudentController.show);
 routes.post('/students', validationStudentStore, StudentController.store);
 routes.put(
   '/students/:student_id',

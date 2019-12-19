@@ -62,6 +62,10 @@ export const Grid = styled.ul`
       border-bottom: 1px solid #eee;
     }
 
+    &:last-child {
+      border-bottom: 0;
+    }
+
     p {
       color: #666;
     }

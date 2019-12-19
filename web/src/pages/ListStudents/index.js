@@ -56,27 +56,19 @@ export default function ListStudents() {
             <strong>IDADE</strong>
           </li>
           {students.map(s => (
-            <>
-              <li key={s.id}>
-                <p>{s.name}</p>
-                <p>{s.email}</p>
-                <p>{s.age}</p>
-                <GridButton>
-                  <button
-                    type="submit"
-                    onClick={() => handleUpdateStudent(s.id)}
-                  >
-                    EDITAR
-                  </button>
-                  <button
-                    type="submit"
-                    onClick={() => handleDeleteStudent(s.id)}
-                  >
-                    EXCLUIR
-                  </button>
-                </GridButton>
-              </li>
-            </>
+            <li key={s.id}>
+              <p>{s.name}</p>
+              <p>{s.email}</p>
+              <p>{s.age}</p>
+              <GridButton>
+                <button type="submit" onClick={() => handleUpdateStudent(s.id)}>
+                  EDITAR
+                </button>
+                <button type="submit" onClick={() => handleDeleteStudent(s.id)}>
+                  EXCLUIR
+                </button>
+              </GridButton>
+            </li>
           ))}
         </Grid>
       </Content>
