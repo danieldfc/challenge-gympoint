@@ -6,8 +6,7 @@ import { Container, Content, Profile, NavItem } from './styles';
 
 import { signOut } from '~/store/modules/auth/actions';
 
-export default function Header(props) {
-  console.tron.log(props);
+export default function Header() {
   const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
 

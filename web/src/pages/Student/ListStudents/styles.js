@@ -5,6 +5,8 @@ export const Container = styled.div`
   margin: 20px auto;
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  border-radius: 4px;
 `;
 
 export const Wrapper = styled.div`
@@ -37,9 +39,6 @@ export const Wrapper = styled.div`
       height: 36px;
       padding-left: 20px;
     }
-  }
-  h1 {
-    font-size: 22px;
   }
 `;
 
