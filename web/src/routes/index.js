@@ -4,9 +4,9 @@ import Route from './Route';
 
 import SignIn from '~/pages/SignIn';
 
-import ListStudents from '~/pages/ListStudents';
-import UpdateStudent from '~/pages/UpdateStudent';
-import CreatedStudent from '~/pages/CreatedStudent';
+import ListStudents from '~/pages/Student/ListStudents';
+import UpdateStudent from '~/pages/Student/UpdateStudent';
+import CreatedStudent from '~/pages/Student/CreatedStudent';
 
 export default function Routes() {
   return (

@@ -36,9 +36,7 @@ export default function UpdateStudent({ match }) {
 
   async function handleUpdateStudent(data) {
     try {
-      const response = await api.put(`/students/${id}`, data);
-
-      console.tron.log(response);
+      await api.put(`/students/${id}`, data);
       history.push('/dashboard/students');
       toast.success('Student updated with success.');
     } catch (err) {
