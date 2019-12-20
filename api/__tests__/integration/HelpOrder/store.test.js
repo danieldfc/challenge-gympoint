@@ -1,8 +1,8 @@
 import request from 'supertest';
-import app from '../../../src/app';
 
-import truncate from '../../util/truncate';
+import app from '../../../src/app';
 import factory from '../../factory';
+import truncate from '../../util/truncate';
 
 describe('HelpOrder store', () => {
   beforeEach(async () => {
@@ -22,7 +22,7 @@ describe('HelpOrder store', () => {
     expect(response.body).toHaveProperty('id');
   });
 
-  xit('should not be able register a new help order without student', async () => {
+  it('should not be able register a new help order without student', async () => {
     const user = await factory.create('User');
     const help_order = await factory.attrs('HelpOrder');
     const response = await request(app)

@@ -1,17 +1,15 @@
 import bcrypt from 'bcryptjs';
 
-import { UserInterface } from '../../src/app/interfaces/UserInterface';
-
-import truncate from '../util/truncate';
 import factory from '../factory';
+import truncate from '../util/truncate';
 
 describe('Password encrypt', () => {
   beforeEach(async () => {
     await truncate();
   });
 
-  xit('should encrypt user password', async () => {
-    const user: UserInterface = await factory.create('User', {
+  it('should encrypt user password', async () => {
+    const user = await factory.create('User', {
       password: '123456',
     });
 
@@ -20,8 +18,8 @@ describe('Password encrypt', () => {
     expect(compareHash).toBe(true);
   });
 
-  xit('should not be able encrypt password with new user created', async () => {
-    const user: UserInterface = await factory.create('User', {
+  it('should not be able encrypt password with new user created', async () => {
+    const user = await factory.create('User', {
       password: '123456',
     });
 

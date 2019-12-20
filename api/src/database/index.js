@@ -1,11 +1,11 @@
 import Sequelize from 'sequelize';
 
-import User from '../app/models/User';
-import Student from '../app/models/Student';
-import Plan from '../app/models/Plan';
-import Enrollment from '../app/models/Enrollment';
 import Checkin from '../app/models/Checkin';
+import Enrollment from '../app/models/Enrollment';
 import HelpOrder from '../app/models/HelpOrder';
+import Plan from '../app/models/Plan';
+import Student from '../app/models/Student';
+import User from '../app/models/User';
 
 import dbConfig from '../config/database';
 

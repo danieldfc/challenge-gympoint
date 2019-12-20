@@ -1,7 +1,8 @@
 import Student from '../models/Student';
 
-import WelcomeMail from '../jobs/WelcomeMail';
 import Queue from '../../lib/Queue';
+
+import WelcomeMail from '../jobs/WelcomeMail';
 
 class StudentController {
   async index(req, res) {

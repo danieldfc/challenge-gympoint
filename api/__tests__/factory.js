@@ -1,12 +1,12 @@
-import faker from 'faker';
 import factory from 'factory-girl';
+import faker from 'faker';
 
-import User from '../src/app/models/User';
-import Student from '../src/app/models/Student';
-import Plan from '../src/app/models/Plan';
 import Checkin from '../src/app/models/Checkin';
-import HelpOrder from '../src/app/models/HelpOrder';
 import Enrollment from '../src/app/models/Enrollment';
+import HelpOrder from '../src/app/models/HelpOrder';
+import Plan from '../src/app/models/Plan';
+import Student from '../src/app/models/Student';
+import User from '../src/app/models/User';
 
 factory.define('User', User, {
   name: faker.name.findName(),

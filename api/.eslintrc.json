@@ -16,7 +16,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "import-helpers"],
   "rules": {
     "import/no-unresolved": "off",
     "prettier/prettier": "error",
@@ -24,6 +24,26 @@
     "camelcase": "off",
     "no-console": "off",
     "no-param-reassign": "off",
-    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always",
+        "groups": [
+          "/^express/",
+          "/sequelize/",
+          "module",
+          "/controllers/",
+          "/middlewares/",
+          "/validators/",
+          "/models/",
+          "/config/",
+          "/lib/",
+          "/jobs/",
+          ["parent", "sibling", "index"]
+        ],
+        "alphabetize": { "order": "asc", "ignoreCase": true }
+      }
+    ]
   }
 }

@@ -1,11 +1,15 @@
+import { Op } from 'sequelize';
+
 import { addMonths, parseISO } from 'date-fns';
 
 import Enrollment from '../models/Enrollment';
-import Student from '../models/Student';
 import Plan from '../models/Plan';
+import Student from '../models/Student';
 
 class EnrollmentController {
   async index(req, res) {
+    const { name } = req.query;
+
     const enrollments = await Enrollment.findAll({
       attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
       include: [
@@ -13,6 +17,11 @@ class EnrollmentController {
           model: Student,
           as: 'student',
           attributes: ['id', 'name', 'email'],
+          where: {
+            name: {
+              [Op.iLike]: `${name || ''}%`,
+            },
+          },
         },
         {
           model: Plan,

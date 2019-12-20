@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+
 import { isBefore, isAfter } from 'date-fns';
 
 class Enrollment extends Model {

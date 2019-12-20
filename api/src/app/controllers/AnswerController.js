@@ -1,8 +1,9 @@
 import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
 
-import AnswerMail from '../jobs/AnswerMail';
 import Queue from '../../lib/Queue';
+
+import AnswerMail from '../jobs/AnswerMail';
 
 class AnswerController {
   async store(req, res) {

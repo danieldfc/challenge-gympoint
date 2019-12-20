@@ -1,24 +1,24 @@
 import { Router } from 'express';
 
-import UserController from './app/controllers/UserController';
+import AnswerController from './app/controllers/AnswerController';
+import CheckinController from './app/controllers/CheckinController';
+import EnrollmentController from './app/controllers/EnrollmentController';
+import HelpOrderController from './app/controllers/HelpOrderController';
+import PlanController from './app/controllers/PlanController';
 import SessionController from './app/controllers/SessionController';
 import StudentController from './app/controllers/StudentController';
-import PlanController from './app/controllers/PlanController';
-import EnrollmentController from './app/controllers/EnrollmentController';
-import CheckinController from './app/controllers/CheckinController';
-import HelpOrderController from './app/controllers/HelpOrderController';
-import AnswerController from './app/controllers/AnswerController';
+import UserController from './app/controllers/UserController';
 
 import authMiddleware from './app/middlewares/auth';
 
-import validationUserStore from './app/validators/User/Store';
+import validationEnrollmentStore from './app/validators/Enrollment/Store';
+import validationEnrollmentUpdate from './app/validators/Enrollment/Update';
+import validationPlanStore from './app/validators/Plan/Store';
+import validationPlanUpdate from './app/validators/Plan/Update';
 import validationSessionStore from './app/validators/Session/Store';
 import validationStudentStore from './app/validators/Student/Store';
 import validationStudentUpdate from './app/validators/Student/Update';
-import validationPlanStore from './app/validators/Plan/Store';
-import validationPlanUpdate from './app/validators/Plan/Update';
-import validationEnrollmentStore from './app/validators/Enrollment/Store';
-import validationEnrollmentUpdate from './app/validators/Enrollment/Update';
+import validationUserStore from './app/validators/User/Store';
 
 const routes = Router();
 

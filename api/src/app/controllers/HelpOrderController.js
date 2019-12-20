@@ -2,9 +2,9 @@ import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
 import User from '../models/User';
 
-import HelpOrderMail from '../jobs/HelpOrderMail';
-
 import Queue from '../../lib/Queue';
+
+import HelpOrderMail from '../jobs/HelpOrderMail';
 
 class HelpOrderController {
   async index(req, res) {

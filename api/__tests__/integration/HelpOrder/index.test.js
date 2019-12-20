@@ -1,8 +1,8 @@
 import request from 'supertest';
-import app from '../../../src/app';
 
-import truncate from '../../util/truncate';
+import app from '../../../src/app';
 import factory from '../../factory';
+import truncate from '../../util/truncate';
 
 describe('HelpOrder index', () => {
   beforeEach(async () => {

@@ -1,10 +1,10 @@
 import Bee from 'bee-queue';
 
-import WelcomeMail from '../app/jobs/WelcomeMail';
-import HelpOrderMail from '../app/jobs/HelpOrderMail';
-import AnswerMail from '../app/jobs/AnswerMail';
-
 import redisConfig from '../config/redis';
+
+import AnswerMail from '../app/jobs/AnswerMail';
+import HelpOrderMail from '../app/jobs/HelpOrderMail';
+import WelcomeMail from '../app/jobs/WelcomeMail';
 
 const jobs = [WelcomeMail, HelpOrderMail, AnswerMail];
 
