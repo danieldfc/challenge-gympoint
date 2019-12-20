@@ -1,11 +1,11 @@
 import React from 'react';
 import { MdKeyboardBackspace, MdSave } from 'react-icons/md';
+
 import { Form as ContainerForm, Input } from '@rocketseat/unform';
 import PropTypes from 'prop-types';
 
-import history from '~/services/history';
-
 import Button from '~/components/Button';
+import history from '~/services/history';
 
 import { Container, Content } from './styles';
 

@@ -1,12 +1,15 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
-import Route from './Route';
 
+import CreatePlans from '~/pages/Plan/CreatePlans';
+import ListPlans from '~/pages/Plan/ListPlans';
+import UpdatePlan from '~/pages/Plan/UpdatePlan';
 import SignIn from '~/pages/SignIn';
-
+import CreatedStudent from '~/pages/Student/CreatedStudent';
 import ListStudents from '~/pages/Student/ListStudents';
 import UpdateStudent from '~/pages/Student/UpdateStudent';
-import CreatedStudent from '~/pages/Student/CreatedStudent';
+
+import Route from './Route';
 
 export default function Routes() {
   return (
@@ -26,6 +29,10 @@ export default function Routes() {
         component={CreatedStudent}
         isPrivate
       />
+
+      <Route path="/dashboard/plans" exact component={ListPlans} isPrivate />
+      <Route path="/plans/:id" exact component={UpdatePlan} isPrivate />
+      <Route path="/created/plans" exact component={CreatePlans} isPrivate />
     </Switch>
   );
 }

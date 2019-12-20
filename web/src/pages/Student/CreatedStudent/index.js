@@ -1,9 +1,9 @@
 import React from 'react';
-import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
-import Form from '~/components/Form';
+import * as Yup from 'yup';
 
+import Form from '~/components/Form';
 import api from '~/services/api';
 import history from '~/services/history';
 

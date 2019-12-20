@@ -1,4 +1,5 @@
 import produce from 'immer';
+
 import AuthTypes from './types';
 
 const INITIAL_STATE = {

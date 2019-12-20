@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+
+import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
 import Form from '~/components/Form';
-
 import api from '~/services/api';
 import history from '~/services/history';
 

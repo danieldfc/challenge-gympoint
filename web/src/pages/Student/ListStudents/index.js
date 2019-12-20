@@ -20,7 +20,7 @@ export default function ListStudents() {
   }, [students]);
 
   function handleSubmit() {
-    history.push('/created/student');
+    history.push('/created/students');
   }
 
   function handleUpdateStudent(id) {
