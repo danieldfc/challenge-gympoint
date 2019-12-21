@@ -4,13 +4,8 @@ export default async (req, res, next) => {
   try {
     const schema = object().shape({
       title: string().strict(true),
-      duration: number()
-        .positive()
-        .integer()
-        .required(),
-      price: number()
-        .positive()
-        .required(),
+      duration: string().strict(true),
+      price: number().positive(),
     });
 
     await schema.validate(req.body, { abortEarly: false });
