@@ -18,39 +18,16 @@ export const Wrapper = styled.div`
     font-size: 24px;
     color: #444;
   }
-
-  div {
-    display: flex;
-
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ee4d64;
-      border: 0;
-      width: 142px;
-      height: 36px;
-      border-radius: 4px;
-      margin-right: 10px;
-      padding: 5px;
-      color: #fff;
-      font-weight: bold;
-
-      svg {
-        margin-right: 10px;
-      }
-    }
-  }
 `;
 
-export const Grid = styled.ul`
+export const Grid = styled.div`
   background: #fff;
   min-width: 100%;
   padding: 20px;
 
   li {
-    color: #444;
     display: grid;
+    color: #444;
     grid-template-columns: repeat(4, 1fr);
     flex-direction: row;
     justify-content: space-between;
@@ -67,12 +44,23 @@ export const Grid = styled.ul`
     p {
       color: #666;
     }
+
+    button {
+      background: none;
+      border: 0;
+      color: #00f;
+      font-size: 16px;
+
+      & + button {
+        margin-left: 40px;
+        color: #f00;
+      }
+    }
   }
 `;
 
 export const GridButton = styled.div`
   display: flex;
-
   a {
     & + button {
       margin-left: 20px;
@@ -85,27 +73,5 @@ export const GridButton = styled.div`
     border: 0;
     color: #00f;
     font-size: 16px;
-  }
-`;
-
-export const Search = styled.div`
-  display: flex;
-  padding: 4px;
-  max-width: 230px;
-  max-height: 36px;
-  align-items: center;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-
-  svg {
-    margin-left: 4px;
-  }
-
-  input {
-    color: #000;
-    background: none;
-    border: 0;
-    margin-left: 4px;
   }
 `;

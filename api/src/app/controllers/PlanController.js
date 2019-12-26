@@ -11,6 +11,24 @@ class PlanController {
     return res.json(plans);
   }
 
+  async show(req, res) {
+    const { id } = req.params;
+
+    const plan = await Plan.findByPk(id);
+
+    if (!plan) {
+      return res.status(404).json({ error: { message: 'Plan not found.' } });
+    }
+
+    const { title, duration, price } = plan;
+
+    return res.json({
+      title,
+      duration,
+      price,
+    });
+  }
+
   async store(req, res) {
     const { title } = req.body;
 

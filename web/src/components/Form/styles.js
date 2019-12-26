@@ -10,6 +10,11 @@ export const Container = styled.div`
 
   div {
     display: flex;
+
+    h1 {
+      font-size: 24px;
+      color: #444;
+    }
   }
 
   span {
@@ -24,6 +29,7 @@ export const Container = styled.div`
     }
 
     label {
+      color: #444;
       font-weight: bold;
     }
 
@@ -47,8 +53,8 @@ export const Container = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  padding: 20px;
+  margin-top: 20px;
+  padding: 30px;
   border-radius: 4px;
 
   div {

@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 export const NavItem = styled(Link)`
   font-weight: bold;
-  color: ${props => (props.active ? '#ee4d64' : '#ccc')};
+  color: ${props => (props.active ? '#444' : '#ccc')};
   margin-right: 10px;
 `;
 

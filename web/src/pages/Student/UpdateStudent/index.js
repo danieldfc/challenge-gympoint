@@ -2,21 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
 
 import Form from '~/components/Form';
 import api from '~/services/api';
 import history from '~/services/history';
-
-const schema = Yup.object().shape({
-  name: Yup.string(),
-  email: Yup.string(),
-  age: Yup.number()
-    .positive()
-    .integer(),
-  weight: Yup.number().positive(),
-  height: Yup.number().positive(),
-});
+import schema from '~/validators/Student/Update';
 
 export default function UpdateStudent({ match }) {
   const [student, setStudent] = useState({});
@@ -46,7 +36,8 @@ export default function UpdateStudent({ match }) {
       initialData={student}
       schema={schema}
       onSubmit={handleUpdateStudent}
-      id={id}
+      type="aluno"
+      isRegister={false}
     />
   );
 }

@@ -22,17 +22,32 @@ export default function Routes() {
         component={ListStudents}
         isPrivate
       />
-      <Route path="/students/:id" exact component={UpdateStudent} isPrivate />
       <Route
-        path="/created/student"
+        path="/dashboard/students/updated/:id"
+        exact
+        component={UpdateStudent}
+        isPrivate
+      />
+      <Route
+        path="/dashboard/students/created"
         exact
         component={CreatedStudent}
         isPrivate
       />
 
       <Route path="/dashboard/plans" exact component={ListPlans} isPrivate />
-      <Route path="/plans/:id" exact component={UpdatePlan} isPrivate />
-      <Route path="/created/plans" exact component={CreatePlans} isPrivate />
+      <Route
+        path="/dashboard/plans/updated/:id"
+        exact
+        component={UpdatePlan}
+        isPrivate
+      />
+      <Route
+        path="/dashboard/plans/created"
+        exact
+        component={CreatePlans}
+        isPrivate
+      />
     </Switch>
   );
 }

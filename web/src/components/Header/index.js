@@ -10,7 +10,6 @@ import { Container, Content, Profile, NavItem } from './styles';
 export default function Header() {
   const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
-
   const path = window.location.pathname;
 
   function handleSignOut() {
@@ -26,8 +25,8 @@ export default function Header() {
             to="/dashboard/students"
             active={
               path === '/dashboard/students' ||
-              path === '/created/student' ||
-              path === '/students/:id'
+              path === '/dashboard/students/created' ||
+              path === '/dashboard/students/updated/:id'
             }
           >
             ALUNOS
@@ -36,8 +35,8 @@ export default function Header() {
             to="/dashboard/plans"
             active={
               path === '/dashboard/plans' ||
-              path === '/created/plans' ||
-              path === '/plans/:id'
+              path === '/dashboard/plans/created' ||
+              path === '/dashboard/plans/updated/:id'
             }
           >
             PLANOS
