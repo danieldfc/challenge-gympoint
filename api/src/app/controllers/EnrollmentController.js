@@ -48,8 +48,7 @@ class EnrollmentController {
   }
 
   async store(req, res) {
-    const { student_id } = req.params;
-    const { plan_id, start_date } = req.body;
+    const { plan_id, start_date, student_id } = req.body;
 
     const checkStudent = await Student.findByPk(student_id);
 
@@ -113,31 +112,51 @@ class EnrollmentController {
 
   async update(req, res) {
     const { id } = req.params;
+    const { plan_id, start_date, student_id } = req.body;
+
     const enrollment = await Enrollment.findByPk(id);
-
     if (!enrollment) {
-      return res.status(400).json({ error: 'Enrollment does not exists' });
-    }
-
-    const { plan_id, student_id, start_date } = req.body;
-    const plan = await Plan.findByPk(plan_id);
-    if (!plan) {
-      return res.status(400).json({ error: 'Plan does not exists' });
+      return res
+        .status(404)
+        .json({ error: { message: 'Enrollment not found' } });
     }
 
     const student = await Student.findByPk(student_id);
     if (!student) {
-      return res.status(400).json({ error: 'Student does not exists' });
+      return res.status(404).json({ error: { message: 'Student not found' } });
     }
 
-    const end_date = addMonths(parseISO(start_date), plan.duration);
+    if (student_id !== enrollment.student_id) {
+      const checkEnrollmentExists = await Enrollment.findOne({
+        where: { student_id },
+      });
+
+      if (checkEnrollmentExists) {
+        return res.status(401).json({
+          error: { message: 'Student already is enrollment' },
+        });
+      }
+    }
+
+    const plan = await Plan.findByPk(plan_id);
+    if (!plan) {
+      return res.status(404).json({ error: { message: 'Plan not found' } });
+    }
+
+    let { price, end_date } = enrollment;
+
+    if (plan_id !== enrollment.plan_id) {
+      price = plan.duration * plan.price;
+    }
+
+    end_date = addMonths(parseISO(start_date), plan.duration);
 
     await enrollment.update({
       plan_id,
       student_id,
       start_date,
       end_date,
-      price: plan.duration * plan.price,
+      price,
     });
 
     return res.json(enrollment);

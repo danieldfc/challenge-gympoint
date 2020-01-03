@@ -3,6 +3,10 @@ import { object, date, number } from 'yup';
 export default async (req, res, next) => {
   try {
     const schema = object().shape({
+      student_id: number()
+        .positive()
+        .integer()
+        .required(),
       plan_id: number()
         .positive()
         .integer()

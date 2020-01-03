@@ -62,12 +62,12 @@ routes.delete('/plans/:id', PlanController.delete);
 routes.get('/enrollments', EnrollmentController.index);
 routes.get('/enrollments/:id', EnrollmentController.show);
 routes.post(
-  '/enrollments/:student_id/student',
+  '/enrollments',
   validationEnrollmentStore,
   EnrollmentController.store
 );
 routes.put(
-  '/enrollments/:student_id/student',
+  '/enrollments/:id',
   validationEnrollmentUpdate,
   EnrollmentController.update
 );
