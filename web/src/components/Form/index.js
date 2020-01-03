@@ -96,7 +96,7 @@ export default function Form({
                 <div>
                   <label htmlFor="price">PREÇO MENSAL</label>
                   <Input
-                    type="number"
+                    type="decimal"
                     name="price"
                     onChange={e => setPrice(e.target.value)}
                   />
@@ -104,7 +104,7 @@ export default function Form({
                 <div>
                   <label htmlFor="price_total">PREÇO TOTAL</label>
                   <Input
-                    type="number"
+                    type="decimal"
                     name="price_total"
                     disabled
                     value={`R$${priceTotal},00`}

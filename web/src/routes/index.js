@@ -3,6 +3,7 @@ import { Switch } from 'react-router-dom';
 
 import CreateEnrollment from '~/pages/Enrollment/CreateEnrollment';
 import ListEnrollment from '~/pages/Enrollment/ListEnrollment';
+import UpdateEnrollment from '~/pages/Enrollment/UpdateEnrollment';
 import CreatePlans from '~/pages/Plan/CreatePlans';
 import ListPlans from '~/pages/Plan/ListPlans';
 import UpdatePlan from '~/pages/Plan/UpdatePlan';
@@ -60,6 +61,12 @@ export default function Routes() {
         path="/dashboard/enrollments"
         exact
         component={ListEnrollment}
+        isPrivate
+      />
+      <Route
+        path="/dashboard/enrollments/updated/:id"
+        exact
+        component={UpdateEnrollment}
         isPrivate
       />
     </Switch>

@@ -30,7 +30,6 @@ export const Container = styled.div`
         font-size: 24px;
         color: #444;
       }
-      display: flex;
       justify-content: space-between;
       & > div {
         display: flex;

@@ -36,6 +36,7 @@ export default function FormEnrollment({
 
   useEffect(() => {
     document.title = 'Gympoint | Matrículas';
+    console.tron.log(initialData);
 
     async function loadPlans() {
       const response = await api.get('/plans');
@@ -51,7 +52,7 @@ export default function FormEnrollment({
 
     loadPlans();
     loadStudents();
-  }, []);
+  }, [initialData]);
 
   const optStudents = students.map(student => ({
     value: `${student.id}`,
@@ -115,6 +116,7 @@ export default function FormEnrollment({
               options={optStudents}
               isSearchable
               onChange={value => getStudent(value)}
+              noOptionsMessage={() => 'Não há alunos'}
             />
           </div>
           <div className="numbers">
@@ -125,13 +127,14 @@ export default function FormEnrollment({
                 options={optPlans}
                 placeholder="Selecione o plano"
                 onChange={value => getPlan(value)}
+                noOptionsMessage={() => 'Não há planos'}
               />
             </div>
             <div>
-              <label htmlFor="date_start">DATA DE INÍCIO</label>
+              <label htmlFor="start_date">DATA DE INÍCIO</label>
               <DatePickerInput
-                id="date_start"
-                name="date_start"
+                id="start_date"
+                name="start_date"
                 dateFormat="dd/MM/yyyy"
                 locale={pt}
                 onChange={calcStartDate}
@@ -154,8 +157,8 @@ export default function FormEnrollment({
               />
             </div>
             <div>
-              <label htmlFor="price_total">VALOR FINAL</label>
-              <Input name="price_total" value={price} disabled />
+              <label htmlFor="price">VALOR FINAL</label>
+              <Input name="price" value={price} disabled />
             </div>
             <Input type="hidden" name="student_id" value={studentId} />
             <Input type="hidden" name="plan_id" value={planId} />
@@ -168,8 +171,8 @@ export default function FormEnrollment({
 }
 
 FormEnrollment.propTypes = {
-  initialData: PropTypes.shape(),
-  schema: PropTypes.shape(),
+  initialData: PropTypes.shape({}),
+  schema: PropTypes.shape({}),
   onSubmit: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   isRegister: PropTypes.bool.isRequired,
