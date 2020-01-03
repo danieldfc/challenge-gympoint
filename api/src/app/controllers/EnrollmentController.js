@@ -1,5 +1,3 @@
-import { Op } from 'sequelize';
-
 import { addMonths, parseISO } from 'date-fns';
 
 import Enrollment from '../models/Enrollment';
@@ -8,8 +6,6 @@ import Student from '../models/Student';
 
 class EnrollmentController {
   async index(req, res) {
-    const { name } = req.query;
-
     const enrollments = await Enrollment.findAll({
       attributes: ['id', 'start_date', 'end_date', 'price', 'active'],
       include: [
@@ -17,11 +13,6 @@ class EnrollmentController {
           model: Student,
           as: 'student',
           attributes: ['id', 'name', 'email'],
-          where: {
-            name: {
-              [Op.iLike]: `${name || ''}%`,
-            },
-          },
         },
         {
           model: Plan,
@@ -60,14 +51,14 @@ class EnrollmentController {
     const { student_id } = req.params;
     const { plan_id, start_date } = req.body;
 
-    const student = await Student.findByPk(student_id);
+    const checkStudent = await Student.findByPk(student_id);
 
-    if (!student) {
+    if (!checkStudent) {
       return res.status(400).json({ error: 'Student does not exists' });
     }
 
-    const plan = await Plan.findByPk(plan_id);
-    if (!plan) {
+    const checkPlan = await Plan.findByPk(plan_id);
+    if (!checkPlan) {
       return res.status(400).json({ error: 'Plan does not exists' });
     }
 
@@ -82,17 +73,42 @@ class EnrollmentController {
         .json({ error: 'Student already enrolled in a plan' });
     }
 
-    const end_date = addMonths(parseISO(start_date), plan.duration);
+    const end_date = addMonths(parseISO(start_date), checkPlan.duration);
 
-    const enrollment = await Enrollment.create({
+    await Enrollment.create({
       plan_id,
       student_id,
       start_date,
       end_date,
-      price: plan.duration * plan.price,
+      price: checkPlan.duration * checkPlan.price,
     });
 
-    return res.json(enrollment);
+    const { id, plan, student, price, active } = await Enrollment.findOne({
+      where: {
+        plan_id,
+        student_id,
+      },
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['id', 'name', 'email'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['id', 'title', 'duration', 'price'],
+        },
+      ],
+    });
+
+    return res.json({
+      id,
+      plan,
+      student,
+      price,
+      active,
+    });
   }
 
   async update(req, res) {

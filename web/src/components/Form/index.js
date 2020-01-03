@@ -69,11 +69,11 @@ export default function Form({
                 </div>
                 <div>
                   <label htmlFor="weight">PESO (em kg)</label>
-                  <Input type="decimal" name="weight" />
+                  <Input type="number" name="weight" />
                 </div>
                 <div>
                   <label htmlFor="height">ALTURA</label>
-                  <Input type="decimal" name="height" />
+                  <Input type="number" name="height" />
                 </div>
               </div>
             </>
@@ -87,6 +87,7 @@ export default function Form({
                 <div>
                   <label htmlFor="duration">DURAÇÃO (em meses)</label>
                   <Input
+                    type="number"
                     name="duration"
                     placeholder="duração"
                     onChange={e => setDuration(e.target.value)}
@@ -95,7 +96,7 @@ export default function Form({
                 <div>
                   <label htmlFor="price">PREÇO MENSAL</label>
                   <Input
-                    type="decimal"
+                    type="number"
                     name="price"
                     onChange={e => setPrice(e.target.value)}
                   />
@@ -103,12 +104,10 @@ export default function Form({
                 <div>
                   <label htmlFor="price_total">PREÇO TOTAL</label>
                   <Input
-                    type="decimal"
+                    type="number"
                     name="price_total"
                     disabled
-                    value={
-                      'R$ ' +  // eslint-disable-next-line
-                      `${priceTotal},00`}
+                    value={`R$${priceTotal},00`}
                   />
                 </div>
               </div>

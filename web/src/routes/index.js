@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
+import CreateEnrollment from '~/pages/Enrollment/CreateEnrollment';
+import ListEnrollment from '~/pages/Enrollment/ListEnrollment';
 import CreatePlans from '~/pages/Plan/CreatePlans';
 import ListPlans from '~/pages/Plan/ListPlans';
 import UpdatePlan from '~/pages/Plan/UpdatePlan';
@@ -46,6 +48,18 @@ export default function Routes() {
         path="/dashboard/plans/created"
         exact
         component={CreatePlans}
+        isPrivate
+      />
+      <Route
+        path="/dashboard/enrollments/created"
+        exact
+        component={CreateEnrollment}
+        isPrivate
+      />
+      <Route
+        path="/dashboard/enrollments"
+        exact
+        component={ListEnrollment}
         isPrivate
       />
     </Switch>

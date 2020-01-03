@@ -42,8 +42,12 @@ export default function Header() {
             PLANOS
           </NavItem>
           <NavItem
-            to="/dashboard/enrollment"
-            active={path === '/dashboard/enrollment'}
+            to="/dashboard/enrollments"
+            active={
+              path === '/dashboard/enrollments' ||
+              path === '/dashboard/enrollments/created' ||
+              path === '/dashboard/enrollments/updated/:id'
+            }
           >
             MATRÍCULAS
           </NavItem>

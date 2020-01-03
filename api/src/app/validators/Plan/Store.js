@@ -6,8 +6,9 @@ export default async (req, res, next) => {
       title: string()
         .strict(true)
         .required(),
-      duration: string()
-        .strict(true)
+      duration: number()
+        .integer()
+        .positive()
         .required(),
       price: number()
         .positive()

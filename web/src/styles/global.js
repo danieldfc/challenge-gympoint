@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
-
   * {
     margin: 0;
     padding: 0;
@@ -17,20 +16,22 @@ export default createGlobalStyle`
     outline: 0;
   }
 
-  html, body {
+  html, body, #root {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-  }
-
-  #root {
-    min-height: 100%;
+    width: 100%;
+    max-width: 1980px;
+    min-width: 1200px;
   }
 
   body {
     -webkit-font-smoothing: antialiased !important;
   }
 
-  body, input, button {
+  body, input, button, table {
     font: 14px 'Roboto', sans-serif;
+    background: #fff;
   }
 
   a {

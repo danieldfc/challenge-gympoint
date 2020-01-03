@@ -13,16 +13,13 @@ export default function ListPlans() {
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
+    document.title = 'Gympoint | Plan';
     async function loadPlans() {
       const response = await api.get('/plans');
 
       setPlans(response.data);
     }
     loadPlans();
-  }, [plans]);
-
-  useEffect(() => {
-    document.title = 'Gympoint | Plan';
   }, []);
 
   function handleSubmit() {

@@ -59,15 +59,15 @@ routes.put('/plans/:id', validationPlanUpdate, PlanController.update);
 routes.delete('/plans/:id', PlanController.delete);
 
 // Enrollment
-routes.get('/enrollment', EnrollmentController.index);
-routes.get('/enrollment/:id', EnrollmentController.show);
+routes.get('/enrollments', EnrollmentController.index);
+routes.get('/enrollments/:id', EnrollmentController.show);
 routes.post(
-  '/enrollment/:student_id/student',
+  '/enrollments/:student_id/student',
   validationEnrollmentStore,
   EnrollmentController.store
 );
 routes.put(
-  '/enrollment/:student_id/student',
+  '/enrollments/:student_id/student',
   validationEnrollmentUpdate,
   EnrollmentController.update
 );

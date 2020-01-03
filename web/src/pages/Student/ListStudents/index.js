@@ -13,16 +13,13 @@ export default function ListStudents() {
   const [student, setStudent] = useState('');
 
   useEffect(() => {
+    document.title = 'Gympoint | Alunos';
     async function loadStudents() {
       const response = await api.get('/students');
 
       setStudents(response.data);
     }
     loadStudents();
-  }, [students]);
-
-  useEffect(() => {
-    document.title = 'Gympoint | Alunos';
   }, []);
 
   async function handleDeleteStudent(id) {

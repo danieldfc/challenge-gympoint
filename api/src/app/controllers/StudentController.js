@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import Student from '../models/Student';
 
 import Queue from '../../lib/Queue';
@@ -6,7 +8,15 @@ import WelcomeMail from '../jobs/WelcomeMail';
 
 class StudentController {
   async index(req, res) {
-    const students = await Student.findAll();
+    const { name } = req.query;
+
+    const students = await Student.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `${name || ''}%`,
+        },
+      },
+    });
 
     return res.json(students);
   }
