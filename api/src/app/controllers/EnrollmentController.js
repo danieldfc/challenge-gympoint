@@ -151,6 +151,8 @@ class EnrollmentController {
 
     end_date = addMonths(parseISO(start_date), plan.duration);
 
+    await enrollment.save();
+
     await enrollment.update({
       plan_id,
       student_id,

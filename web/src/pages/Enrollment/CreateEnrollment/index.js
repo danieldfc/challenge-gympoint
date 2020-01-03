@@ -9,7 +9,8 @@ import schema from '~/validators/Enrollment/Store';
 export default function CreateEnrollment() {
   async function handleSubmit({ student_id, plan_id, start_date }) {
     try {
-      await api.post(`/enrollments/${student_id}/student`, {
+      await api.post('/enrollments', {
+        student_id,
         plan_id,
         start_date,
       });

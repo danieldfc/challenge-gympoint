@@ -22,7 +22,8 @@ export default function UpdateEnrollment() {
 
   async function handleSubmit({ student_id, plan_id, start_date }) {
     try {
-      await api.put(`/enrollments/${student_id}/student`, {
+      await api.put(`/enrollments/${id}`, {
+        student_id,
         plan_id,
         start_date,
       });

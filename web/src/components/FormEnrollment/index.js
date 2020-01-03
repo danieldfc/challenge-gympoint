@@ -36,7 +36,6 @@ export default function FormEnrollment({
 
   useEffect(() => {
     document.title = 'Gympoint | Matrículas';
-    console.tron.log(initialData);
 
     async function loadPlans() {
       const response = await api.get('/plans');

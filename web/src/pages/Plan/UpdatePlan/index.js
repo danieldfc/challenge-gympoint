@@ -36,7 +36,6 @@ export default function UpdatePlan({ match }) {
       initialData={plan}
       schema={schema}
       onSubmit={handleUpdatePlan}
-      id={id}
       type="plano"
     />
   );

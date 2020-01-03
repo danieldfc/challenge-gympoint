@@ -23,7 +23,7 @@ export default function ListEnrollment() {
       setEnrollments(response.data);
     }
     loadEnrollments();
-  }, []);
+  }, [enrollments]);
 
   async function handleDeleteEnrollment(id) {
     const result = window.confirm(
