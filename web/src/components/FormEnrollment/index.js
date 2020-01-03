@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { MdKeyboardArrowLeft, MdDone } from 'react-icons/md';
-import Select from 'react-select';
 
 import { Form, Input } from '@rocketseat/unform';
-import { addDays } from 'date-fns';
+import { addMonths } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import PropTypes from 'prop-types';
 
@@ -12,6 +11,7 @@ import DatePickerInput from '~/components/DatePickerInput';
 import api from '~/services/api';
 import history from '~/services/history';
 
+import Select from '../SelectInput';
 import { Container, Content } from './styles';
 
 export default function FormEnrollment({
@@ -34,55 +34,55 @@ export default function FormEnrollment({
 
   const [durationPlan, setDurationPlan] = useState(0);
 
+  async function loadPlans() {
+    const response = await api.get('/plans');
+
+    const data = response.data.map(plan => ({
+      id: plan.id,
+      title: plan.title,
+    }));
+
+    setPlans(data);
+  }
+
+  async function loadStudents() {
+    const response = await api.get('/students');
+
+    const data = response.data.map(student => ({
+      id: student.id,
+      title: student.name,
+    }));
+
+    setStudents(data);
+  }
+
   useEffect(() => {
     document.title = 'Gympoint | Matrículas';
 
-    async function loadPlans() {
-      const response = await api.get('/plans');
-
-      setPlans(response.data);
-    }
-
-    async function loadStudents() {
-      const response = await api.get('/students');
-
-      setStudents(response.data);
-    }
-
     loadPlans();
     loadStudents();
-  }, [initialData]);
-
-  const optStudents = students.map(student => ({
-    value: `${student.id}`,
-    label: `${student.name}`,
-  }));
-
-  const optPlans = plans.map(plan => ({
-    value: `${plan.id}`,
-    label: `${plan.title}`,
-  }));
+  }, []);
 
   function calcStartDate(date) {
     setDateStart(date);
-    SetDateEnd(addDays(date, durationPlan * 30));
+    SetDateEnd(addMonths(date, durationPlan));
   }
 
   function getStudent(student) {
-    setStudentId(student.value);
+    setStudentId(student.id);
   }
 
   async function getPlan(plan) {
-    const response = await api.get(`/plans/${plan.value}`);
+    const response = await api.get(`/plans/${plan.id}`);
     const { price: price_total, duration } = response.data;
     const total = price_total * duration;
 
     if (response) {
-      SetDateEnd(addDays(dateStart, duration * 30));
+      SetDateEnd(addMonths(dateStart, duration));
       setPrice(`R$${total},00`);
       setDurationPlan(duration);
     }
-    setPlanId(plan.value);
+    setPlanId(plan.id);
   }
 
   return (
@@ -107,61 +107,54 @@ export default function FormEnrollment({
           </div>
         </div>
         <Content>
-          <div className="wrapper">
-            <label htmlFor="students">ALUNO </label>
-            <Select
-              name="students"
-              placeholder="Buscar aluno"
-              options={optStudents}
-              isSearchable
-              onChange={value => getStudent(value)}
-              noOptionsMessage={() => 'Não há alunos'}
-            />
-          </div>
+          <Select
+            options={students}
+            placeholder="Selecione o aluno"
+            onChange={getStudent}
+            noOptionsMessage={() => 'Não há alunos'}
+            name="student_id"
+            label="ALUNO"
+            loadOptions={loadStudents}
+            cacheOptions
+          />
           <div className="numbers">
-            <div>
-              <label htmlFor="plans">PLANO</label>
-              <Select
-                name="plans"
-                options={optPlans}
-                placeholder="Selecione o plano"
-                onChange={value => getPlan(value)}
-                noOptionsMessage={() => 'Não há planos'}
-              />
-            </div>
-            <div>
-              <label htmlFor="start_date">DATA DE INÍCIO</label>
-              <DatePickerInput
-                id="start_date"
-                name="start_date"
-                dateFormat="dd/MM/yyyy"
-                locale={pt}
-                onChange={calcStartDate}
-                selected={dateStart}
-                value={this}
-                popperPlacement="center"
-              />
-            </div>
-            <div>
-              <label htmlFor="date_end">DATA DE TÉRMINO</label>
-              <DatePickerInput
-                id="date_end"
-                name="date_end"
-                dateFormat="dd/MM/yyyy"
-                locale={pt}
-                selected={dateEnd}
-                value={this}
-                popperPlacement="center"
-                disabled
-              />
-            </div>
+            <Select
+              options={plans}
+              placeholder="Selecione o plano"
+              onChange={getPlan}
+              noOptionsMessage={() => 'Não há planos'}
+              name="plan_id"
+              loadOptions={loadPlans}
+              cacheOptions
+              label="PLANO"
+            />
+            <DatePickerInput
+              id="start_date"
+              name="start_date"
+              dateFormat="dd/MM/yyyy"
+              locale={pt}
+              onChange={calcStartDate}
+              selected={dateStart}
+              popperPlacement="center"
+              label="DATA DE INÍCIO"
+            />
+            <DatePickerInput
+              id="end_date"
+              name="end_date"
+              dateFormat="dd/MM/yyyy"
+              locale={pt}
+              onChange={calcStartDate}
+              selected={dateEnd}
+              popperPlacement="center"
+              disabled
+              label="DATA DE TÉRMINO"
+            />
             <div>
               <label htmlFor="price">VALOR FINAL</label>
               <Input name="price" value={price} disabled />
             </div>
-            <Input type="hidden" name="student_id" value={studentId} />
-            <Input type="hidden" name="plan_id" value={planId} />
-            <Input type="hidden" name="start_date" value={dateStart} />
+            <Input type="hidden" name="student_id" value={studentId} disabled />
+            <Input type="hidden" name="plan_id" value={planId} disabled />
           </div>
         </Content>
       </Form>

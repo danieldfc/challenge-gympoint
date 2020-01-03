@@ -8,16 +8,16 @@ import history from '~/services/history';
 import schema from '~/validators/Enrollment/Update';
 
 export default function UpdateEnrollment() {
-  const [student, setStudent] = useState({});
+  const [enrollment, setEnrollment] = useState({});
   const { id } = useParams();
 
   useEffect(() => {
-    async function loadStudent() {
+    async function loadEnrollment() {
       const response = await api.get(`/enrollments/${id}`);
 
-      setStudent(response.data);
+      setEnrollment(response.data);
     }
-    loadStudent();
+    loadEnrollment();
   }, [id]);
 
   async function handleSubmit({ student_id, plan_id, start_date }) {
@@ -42,7 +42,7 @@ export default function UpdateEnrollment() {
       schema={schema}
       isRegister={false}
       onSubmit={handleSubmit}
-      initialData={student}
+      initialData={enrollment}
     />
   );
 }
