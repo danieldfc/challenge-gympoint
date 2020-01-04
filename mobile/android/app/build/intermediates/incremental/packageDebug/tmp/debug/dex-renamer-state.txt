@@ -1,0 +1,4 @@
+#Sat Jan 04 16:16:07 BRT 2020
+base.0=/home/danielfelizardo/Projects/Bootcamp/desafios-conclusao/challenge-gympoint/mobile/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
