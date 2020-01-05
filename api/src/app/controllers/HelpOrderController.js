@@ -12,7 +12,6 @@ class HelpOrderController {
     const helpOrder = await HelpOrder.findAll({
       where: {
         student_id,
-        answer: null,
       },
       include: [
         {
@@ -31,11 +30,6 @@ class HelpOrderController {
     const { question } = req.body;
 
     const student = await Student.findByPk(student_id);
-    const user = await User.findOne({
-      where: {
-        provider: true,
-      },
-    });
 
     if (!student) {
       return res
@@ -49,7 +43,6 @@ class HelpOrderController {
     });
 
     await Queue.add(HelpOrderMail.key, {
-      user,
       student,
       helpOrder,
     });

@@ -1,10 +1,48 @@
-import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import { Container } from './styles';
+import { useSelector } from 'react-redux';
 
-export default function NewRequest() {
-  return <Text>NewRequest</Text>;
+import PropTypes from 'prop-types';
+
+import Button from '~/components/Button';
+import api from '~/services/api';
+
+import { Container, TextAreaInput } from './styles';
+
+export default function NewRequest({ navigation }) {
+  const [question, setQuestion] = useState();
+
+  const student_id = useSelector(state => state.auth.student.id);
+
+  async function handleSubmit() {
+    try {
+      await api.post(`/students/${student_id}/help-orders`, {
+        question,
+      });
+
+      Alert.alert(
+        'Sucesso',
+        'Sua solicitação de ajuda foi emitida com sucesso'
+      );
+
+      navigation.navigate('ListRequestsAssistance');
+    } catch (err) {
+      Alert.alert('Error', 'Sua solicitação teve algum problema');
+    }
+  }
+
+  return (
+    <Container>
+      <TextAreaInput
+        multiline
+        placeholder="Inclua seu pedido de auxílio"
+        value={question}
+        onChangeText={setQuestion}
+      />
+      <Button onPress={handleSubmit}>Enviar pedido</Button>
+    </Container>
+  );
 }
 
 NewRequest.navigationOptions = ({ navigation }) => ({
@@ -18,3 +56,9 @@ NewRequest.navigationOptions = ({ navigation }) => ({
     </TouchableOpacity>
   ),
 });
+
+NewRequest.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};

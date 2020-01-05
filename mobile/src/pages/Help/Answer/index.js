@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import { Container } from './styles';
 
-export default function Answer() {
-  return <Text>Answer</Text>;
+import PropTypes from 'prop-types';
+
+export default function Answer({ navigation }) {
+  const requestHelp = navigation.getParam('requestHelp');
+
+  return <Text>{requestHelp.answer}</Text>;
 }
 
 Answer.navigationOptions = ({ navigation }) => ({
@@ -18,3 +21,9 @@ Answer.navigationOptions = ({ navigation }) => ({
     </TouchableOpacity>
   ),
 });
+
+Answer.propTypes = {
+  navigation: PropTypes.shape({
+    getParam: PropTypes.func,
+  }).isRequired,
+};
