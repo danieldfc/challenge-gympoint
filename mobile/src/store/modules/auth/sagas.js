@@ -30,7 +30,7 @@ export function setToken({ payload }) {
   const { student } = payload.auth;
 
   if (student) {
-    AsyncStorage.setItem('@gympoint:student', student);
+    AsyncStorage.getItem('persist:gympoint');
   }
 }
 

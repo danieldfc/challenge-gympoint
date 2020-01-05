@@ -1,4 +1,6 @@
-import { Op, subDays } from 'date-fns';
+import { Op } from 'sequelize';
+
+import { subDays } from 'date-fns';
 
 import Checkin from '../models/Checkin';
 import Student from '../models/Student';
@@ -9,6 +11,7 @@ class CheckinController {
 
     const checkins = await Checkin.findAll({
       where: { student_id },
+      order: [['created_at', 'asc']],
       include: [
         {
           model: Student,

@@ -26,9 +26,6 @@ const routes = Router();
 routes.post('/users', validationUserStore, UserController.store);
 routes.post('/sessions', validationSessionStore, SessionController.store);
 
-// Middleware for authenticate
-routes.use(authMiddleware);
-
 // Student
 routes.get('/students', StudentController.index);
 routes.get('/students/:student_id', StudentController.show);
@@ -50,6 +47,9 @@ routes.post('/students/:student_id/help-orders', HelpOrderController.store);
 
 // Answer
 routes.post('/help-orders/:help_order_id/answer', AnswerController.store);
+
+// Middleware for authenticate
+routes.use(authMiddleware);
 
 // Plan
 routes.get('/plans', PlanController.index);
