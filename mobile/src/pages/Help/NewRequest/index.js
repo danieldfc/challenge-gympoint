@@ -17,6 +17,13 @@ export default function NewRequest({ navigation }) {
 
   async function handleSubmit() {
     try {
+      if (!question) {
+        Alert.alert(
+          'Erro na solicitação',
+          'Para solicitar este recurso, você precisa digitar sua pergunta'
+        );
+      }
+
       await api.post(`/students/${student_id}/help-orders`, {
         question,
       });

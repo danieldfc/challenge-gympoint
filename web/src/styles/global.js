@@ -21,8 +21,8 @@ export default createGlobalStyle`
     flex-direction: column;
     height: 100%;
     width: 100%;
-    max-width: 1980px;
-    min-width: 1200px;
+    max-width: 100%;
+    min-width: 100%;
   }
 
   body {
