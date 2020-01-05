@@ -6,7 +6,11 @@ export const Container = styled.View`
   padding: 20px;
   flex-direction: row;
   justify-content: center;
-  max-height: 50px;
+  max-height: 56px;
   align-items: center;
   border-radius: 4px;
+  elevation: 3;
+  shadow-color: #000;
+  shadow-offset: 0 0;
+  shadow-opacity: 0.1;
 `;

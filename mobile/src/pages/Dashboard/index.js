@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, FlatList, View } from 'react-native';
+import { ActivityIndicator, Alert, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from 'react-redux';
 
@@ -69,7 +69,6 @@ export default function Dashboard() {
             <List
               data={checkins}
               inverted
-              showsHorizontalScrollIndicator={false}
               keyExtractor={checkin => String(checkin.id)}
               renderItem={({ item, index }) => (
                 <Item key={item.id}>
@@ -86,7 +85,7 @@ export default function Dashboard() {
 }
 
 Dashboard.navigationOptions = {
-  tabBarLabel: '',
+  tabBarLabel: 'Check-ins',
   tabBarIcon: ({ tintColor }) => (
     <Icon name="edit-location" size={20} color={tintColor} />
   ),
