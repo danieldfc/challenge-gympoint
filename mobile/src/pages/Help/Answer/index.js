@@ -1,13 +1,56 @@
-import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import React, { useMemo } from 'react';
+import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { formatRelative, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import PropTypes from 'prop-types';
+
+import {
+  Container,
+  Content,
+  ContentText,
+  Wrapper,
+  WrapperDateFormatted,
+  WrapperText,
+  AnswerContent,
+} from './styles';
 
 export default function Answer({ navigation }) {
   const requestHelp = navigation.getParam('requestHelp');
 
-  return <Text>{requestHelp.answer}</Text>;
+  const dateFormattedAnswer = useMemo(
+    () =>
+      requestHelp.answer_at
+        ? formatRelative(parseISO(requestHelp.answer_at), new Date(), {
+            locale: pt,
+          })
+        : '',
+    [requestHelp.answer_at]
+  );
+
+  return (
+    <Container>
+      <Content>
+        <Wrapper>
+          <WrapperText>Pergunta</WrapperText>
+          <WrapperDateFormatted>
+            {requestHelp.dateFormatted}
+          </WrapperDateFormatted>
+        </Wrapper>
+        <ContentText>{requestHelp.question}</ContentText>
+        {requestHelp.answer && (
+          <AnswerContent>
+            <Wrapper>
+              <WrapperText>Resposta</WrapperText>
+              <WrapperDateFormatted>{dateFormattedAnswer}</WrapperDateFormatted>
+            </Wrapper>
+            <ContentText>{requestHelp.answer}</ContentText>
+          </AnswerContent>
+        )}
+      </Content>
+    </Container>
+  );
 }
 
 Answer.navigationOptions = ({ navigation }) => ({

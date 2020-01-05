@@ -54,9 +54,7 @@ function ListRequestsAssistance({ navigation, isFocused }) {
   }
 
   function handleAnswer(requestHelp) {
-    if (requestHelp.answer_at) {
-      navigation.navigate('Answer', { requestHelp });
-    }
+    navigation.navigate('Answer', { requestHelp });
   }
 
   return (
