@@ -53,8 +53,8 @@ routes.use(authMiddleware);
 
 // Plan
 routes.get('/plans', PlanController.index);
-routes.get('/plans/:id', PlanController.show);
 routes.post('/plans', validationPlanStore, PlanController.store);
+routes.get('/plans/:id', PlanController.show);
 routes.put('/plans/:id', validationPlanUpdate, PlanController.update);
 routes.delete('/plans/:id', PlanController.delete);
 

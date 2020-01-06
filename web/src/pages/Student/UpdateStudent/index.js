@@ -17,6 +17,7 @@ export default function UpdateStudent({ match }) {
   const { id } = match.params;
 
   useEffect(() => {
+    document.title = 'Gympoint | Alunos';
     async function loadStudent() {
       const response = await api.get(`/students/${id}`);
 

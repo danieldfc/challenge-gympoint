@@ -20,7 +20,7 @@ export default function ListStudents() {
       setStudents(response.data);
     }
     loadStudents();
-  }, []);
+  }, [students]);
 
   async function handleDeleteStudent(id) {
     const result = window.confirm(

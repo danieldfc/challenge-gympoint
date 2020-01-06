@@ -5,13 +5,13 @@ import { darken } from 'polished';
 export const ContainerButton = styled.button`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: #ccc;
   border: 0;
-  width: 120px;
+  width: 112px;
   height: 36px;
   border-radius: 4px;
-  padding: 5px;
+  padding: 5px 10px;
   color: #fff;
   font-weight: bold;
   transition: background 0.2s;

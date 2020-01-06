@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import Button from '~/components/Button';
+
 export const Container = styled.div`
   max-width: 900px;
   margin: 20px auto;
@@ -74,4 +76,9 @@ export const GridButton = styled.div`
     color: #00f;
     font-size: 16px;
   }
+`;
+
+export const WrapperButton = styled(Button)`
+  width: 142px;
+  background: #ee4d64;
 `;

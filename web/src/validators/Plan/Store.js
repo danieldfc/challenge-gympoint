@@ -4,8 +4,9 @@ const schema = Yup.object().shape({
   title: Yup.string()
     .strict(true)
     .required(),
-  duration: Yup.string()
-    .strict(true)
+  duration: Yup.number()
+    .positive()
+    .integer()
     .required(),
   price: Yup.number()
     .positive()

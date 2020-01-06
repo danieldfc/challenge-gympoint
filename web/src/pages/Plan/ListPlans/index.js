@@ -3,22 +3,26 @@ import { MdAdd } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import Button from '~/components/Button';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { Container, Wrapper, Grid, GridButton } from './styles';
+import { Container, Wrapper, Grid, GridButton, WrapperButton } from './styles';
 
 export default function ListPlans() {
   const [plans, setPlans] = useState([]);
 
-  useEffect(() => {
-    document.title = 'Gympoint | Plan';
-    async function loadPlans() {
-      const response = await api.get('/plans');
+  async function loadPlans() {
+    const response = await api.get('/plans');
 
-      setPlans(response.data);
-    }
+    setPlans(response.data);
+  }
+
+  useEffect(() => {
+    loadPlans();
+  }, [plans]);
+
+  useEffect(() => {
+    document.title = 'Gympoint | Plano';
     loadPlans();
   }, []);
 
@@ -43,14 +47,10 @@ export default function ListPlans() {
     <Container>
       <Wrapper>
         <h1>Gerenciando planos</h1>
-        <Button
-          type="submit"
-          onClick={handleSubmit}
-          style={{ background: '#ee4d64' }}
-        >
+        <WrapperButton type="submit" onClick={handleSubmit}>
           <MdAdd size={22} color="#fff" />
           CADASTRAR
-        </Button>
+        </WrapperButton>
       </Wrapper>
       <Grid>
         <li>

@@ -4,7 +4,9 @@ export default async (req, res, next) => {
   try {
     const schema = object().shape({
       title: string().strict(true),
-      duration: string().strict(true),
+      duration: number()
+        .positive()
+        .integer(),
       price: number().positive(),
     });
 
