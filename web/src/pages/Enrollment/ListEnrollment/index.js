@@ -15,15 +15,35 @@ export default function ListEnrollment() {
   const [enrollments, setEnrollments] = useState([]);
 
   useEffect(() => {
-    document.title = 'Gympoint | Alunos';
-
     async function loadEnrollments() {
       const response = await api.get('/enrollments');
 
-      setEnrollments(response.data);
+      const data = response.data.map(enrollment => ({
+        ...enrollment,
+        endDate: format(
+          parseISO(enrollment.end_date),
+          "d' de 'MMMM' de 'yyyy",
+          {
+            locale: pt,
+          }
+        ),
+        startDate: format(
+          parseISO(enrollment.end_date),
+          "d' de 'MMMM' de 'yyyy",
+          {
+            locale: pt,
+          }
+        ),
+      }));
+
+      setEnrollments(data);
     }
     loadEnrollments();
   }, [enrollments]);
+
+  useEffect(() => {
+    document.title = 'Gympoint | Matrículas';
+  }, []);
 
   async function handleDeleteEnrollment(id) {
     const result = window.confirm(
@@ -64,16 +84,8 @@ export default function ListEnrollment() {
           <li key={e.id}>
             <p>{e.student.name}</p>
             <p>{e.plan.title}</p>
-            <p>
-              {format(parseISO(e.start_date), "d' de 'MMMM' de 'yyyy", {
-                locale: pt,
-              })}
-            </p>
-            <p>
-              {format(parseISO(e.end_date), "d' de 'MMMM' de 'yyyy", {
-                locale: pt,
-              })}
-            </p>
+            <p>{e.startDate}</p>
+            <p>{e.endDate}</p>
             <p>
               {e.active ? (
                 <MdCheckCircle size={22} color="#42cb59" />
