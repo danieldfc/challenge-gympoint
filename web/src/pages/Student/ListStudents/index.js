@@ -12,15 +12,16 @@ export default function ListStudents() {
   const [students, setStudents] = useState([]);
   const [student, setStudent] = useState('');
 
+  async function loadStudents() {
+    const response = await api.get('/students');
+
+    setStudents(response.data);
+  }
+
   useEffect(() => {
     document.title = 'Gympoint | Alunos';
-    async function loadStudents() {
-      const response = await api.get('/students');
-
-      setStudents(response.data);
-    }
     loadStudents();
-  }, [students]);
+  }, []);
 
   async function handleDeleteStudent(id) {
     const result = window.confirm(

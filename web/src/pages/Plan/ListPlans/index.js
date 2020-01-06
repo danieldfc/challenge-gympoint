@@ -18,10 +18,6 @@ export default function ListPlans() {
   }
 
   useEffect(() => {
-    loadPlans();
-  }, [plans]);
-
-  useEffect(() => {
     document.title = 'Gympoint | Plano';
     loadPlans();
   }, []);

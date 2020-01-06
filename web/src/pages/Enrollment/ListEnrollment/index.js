@@ -14,35 +14,30 @@ import { Container, Wrapper, Grid, GridButton } from './styles';
 export default function ListEnrollment() {
   const [enrollments, setEnrollments] = useState([]);
 
-  useEffect(() => {
-    async function loadEnrollments() {
-      const response = await api.get('/enrollments');
+  async function loadEnrollments() {
+    const response = await api.get('/enrollments');
 
-      const data = response.data.map(enrollment => ({
-        ...enrollment,
-        endDate: format(
-          parseISO(enrollment.end_date),
-          "d' de 'MMMM' de 'yyyy",
-          {
-            locale: pt,
-          }
-        ),
-        startDate: format(
-          parseISO(enrollment.end_date),
-          "d' de 'MMMM' de 'yyyy",
-          {
-            locale: pt,
-          }
-        ),
-      }));
+    const data = response.data.map(enrollment => ({
+      ...enrollment,
+      endDate: format(parseISO(enrollment.end_date), "d' de 'MMMM' de 'yyyy", {
+        locale: pt,
+      }),
+      startDate: format(
+        parseISO(enrollment.end_date),
+        "d' de 'MMMM' de 'yyyy",
+        {
+          locale: pt,
+        }
+      ),
+    }));
 
-      setEnrollments(data);
-    }
-    loadEnrollments();
-  }, [enrollments]);
+    setEnrollments(data);
+  }
 
   useEffect(() => {
     document.title = 'Gympoint | Matrículas';
+
+    loadEnrollments();
   }, []);
 
   async function handleDeleteEnrollment(id) {

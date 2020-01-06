@@ -1,6 +1,5 @@
 import HelpOrder from '../models/HelpOrder';
 import Student from '../models/Student';
-import User from '../models/User';
 
 import Queue from '../../lib/Queue';
 
@@ -9,6 +8,7 @@ import HelpOrderMail from '../jobs/HelpOrderMail';
 class HelpOrderController {
   async index(req, res) {
     const { student_id } = req.params;
+
     const helpOrder = await HelpOrder.findAll({
       where: {
         student_id,

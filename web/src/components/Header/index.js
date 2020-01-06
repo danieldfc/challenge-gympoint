@@ -52,8 +52,8 @@ export default function Header() {
             MATRÍCULAS
           </NavItem>
           <NavItem
-            to="/dashboard/help_order"
-            active={path === '/dashboard/help_order'}
+            to="/dashboard/requestHelpers"
+            active={path === '/dashboard/requestHelpers'}
           >
             PEDIDOS DE AUXÍLIO
           </NavItem>
