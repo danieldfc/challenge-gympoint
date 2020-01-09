@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  gympoint-api:
+    build: .
+    container_name: 'gympoint-api'
+    volumes:
+      - .:/home/node/api
+      - /home/node/api/node_modules
+    ports:
+      - '3333:3333'
+    depends_on:
+      - gympoint-postgres
+      - gympoint-redis
+    # command: USAGE IS THIS TOOL https://github.com/jwilder/dockerize
+    networks:
+      - gympoint-network
+
+  gympoint-redis:
+    image: redis:alpine
+    container_name: 'gympoint-redis'
+    volumes:
+      - gympoint-redis-data:/data
+    ports:
+      - '6379:6379'
+    networks:
+      - gympoint-network
+
+  gympoint-postgres:
+    image: postgres:11
+    container_name: 'gympoint-postgres'
+    environment:
+      - "ALLOW_EMPTY_PASSWORD=no"
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - "gympoint-postgres-data:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
+    networks:
+      - gympoint-network
+
+volumes:
+  gympoint-redis-data:
+
+  gympoint-postgres-data:
+
+networks:
+  gympoint-network:
+    driver: bridge

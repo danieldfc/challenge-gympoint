@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.js",
+    "prestart": "sequelize db:migrate",
+    "start": "nodemon src/server.js",
     "queue": "nodemon src/queue.js",
     "pretest": "NODE_ENV=test sequelize db:migrate",
     "test": "NODE_ENV=test jest",
@@ -13,14 +15,17 @@
     "build": "sucrase ./src -d ./dist --transforms imports"
   },
   "dependencies": {
+    "@sentry/node": "5.11.0",
     "bcryptjs": "^2.4.3",
     "bee-queue": "^1.2.2",
     "cors": "^2.8.5",
     "date-fns": "^2.7.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "express-handlebars": "^3.1.0",
     "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
     "nodemailer": "^6.4.2",
     "nodemailer-express-handlebars": "^3.1.0",
     "pg": "^7.12.1",

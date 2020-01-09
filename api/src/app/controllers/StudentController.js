@@ -13,33 +13,12 @@ class StudentController {
     const students = await Student.findAll({
       where: {
         name: {
-          [Op.iLike]: `${name || ''}%`,
+          [Op.iLike]: `%${name || ''}%`,
         },
       },
     });
 
     return res.json(students);
-  }
-
-  async show(req, res) {
-    const { student_id } = req.params;
-
-    const student = await Student.findByPk(student_id);
-
-    if (!student) {
-      return res.status(404).json({ error: { message: 'Student not found.' } });
-    }
-
-    const { id, name, email, age, weight, height } = student;
-
-    return res.json({
-      id,
-      name,
-      email,
-      age,
-      weight,
-      height,
-    });
   }
 
   async store(req, res) {
